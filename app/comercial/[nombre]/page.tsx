@@ -204,7 +204,7 @@ Equipo OneSupply`;
           />
 
           <div style={{ display: "grid", gap: 12 }}>
-            {filteredClientes.slice(0, 30).map((cliente) => (
+            {filteredClientes.slice(0, 500).map((cliente) => (
               <div
                 key={cliente.id}
                 style={{
@@ -226,6 +226,15 @@ Equipo OneSupply`;
 
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                   <button style={yellowBtn} onClick={() => activarCliente(cliente)}>
+                    <button
+                  style={yellowBtn}
+                  onClick={() => {
+                  localStorage.setItem("cliente", JSON.stringify(cliente));
+                  window.location.href = "/productos";
+                 }}
+                 >
+                 🛒 Crear pedido
+                 </button>
                     🔗 Activar cliente
                   </button>
 
