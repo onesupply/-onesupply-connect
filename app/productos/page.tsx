@@ -17,9 +17,10 @@ export default function ProductosPage(){
     const [deliveryDate, setDeliveryDate] = useState("");
     const [favoriteCount, setFavoriteCount] = useState(0);
     const [toast, setToast] = useState(""); 
-    const [language, setLanguage] = useState<keyof typeof translations>("es");
-    
-    const t = translations[language];
+    const [language, setLanguage] =
+  useState<keyof typeof translations>("es");
+
+    const t = translations[language as keyof typeof translations];
     
     useEffect(() => {
         const clienteGuardado = localStorage.getItem("cliente");

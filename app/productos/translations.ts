@@ -82,4 +82,4 @@ export const translations = {
     subtitle: "آن لائن آرڈر کا علاقہ",
     products: "مصنوعات",
   },
-};
+} as const;
