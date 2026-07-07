@@ -12,9 +12,11 @@ function callXmlRpc(client: any, method: string, params: any[]) {
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const params = await context.params;
+
     const url = process.env.ODOO_URL!;
     const db = process.env.ODOO_DATABASE!;
     const username = process.env.ODOO_USER!;
@@ -51,7 +53,10 @@ export async function GET(
     ]);
 
     if (!orders || orders.length === 0) {
-      return NextResponse.json({ ok: false, error: "Pedido no encontrado" });
+      return NextResponse.json({
+        ok: false,
+        error: "Pedido no encontrado",
+      });
     }
 
     const order = orders[0];
