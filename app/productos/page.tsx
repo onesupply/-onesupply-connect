@@ -17,7 +17,7 @@ export default function ProductosPage(){
     const [deliveryDate, setDeliveryDate] = useState("");
     const [favoriteCount, setFavoriteCount] = useState(0);
     const [toast, setToast] = useState(""); 
-    const [language, setLanguage] = useState("es");
+    const [language, setLanguage] = useState<keyof typeof translations>("es");
     
     const t = translations[language];
     
