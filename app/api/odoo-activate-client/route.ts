@@ -52,7 +52,7 @@ export async function POST(req: Request) {
       }],
     ]);
 
-    const link = `http://localhost:3000/acceso/${token}`;
+    const link = `https://onesupply-connect-ja2w.vercel.app/acceso/${token}`;
 
     return NextResponse.json({
       ok: true,
