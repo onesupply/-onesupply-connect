@@ -68,7 +68,7 @@ export async function GET(req: Request) {
           "x_studio_token_app",
           "x_studio_app_activa",
         ],
-        limit: 20,
+        limit: 500,
         order: "name asc",
       },
     ]);

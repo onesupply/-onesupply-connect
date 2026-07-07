@@ -10,7 +10,6 @@ import Pedidos from "./Pedidos";
 
 export default function ComercialPage() {
   const params = useParams();
-
   const nombre = String(params.nombre || "Comercial");
 
   const [clienteSeleccionado, setClienteSeleccionado] = useState<any>(null);
@@ -32,17 +31,13 @@ export default function ComercialPage() {
       >
         <Dashboard nombre={nombre} />
 
-        <Clientes
-          onSelect={setClienteSeleccionado}
-        />
+{clienteSeleccionado && (
+  <ClienteFicha cliente={clienteSeleccionado} />
+)}
 
-        {clienteSeleccionado && (
-          <ClienteFicha
-            cliente={clienteSeleccionado}
-          />
-        )}
+<Clientes onSelect={setClienteSeleccionado} />
 
-        <Pedidos />
+<Pedidos />
       </div>
     </main>
   );
