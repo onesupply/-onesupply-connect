@@ -389,11 +389,14 @@ setTimeout(() => setToast(""), 2000);
                         <p style={{ marginTop: 8, color: "#eee", fontSize: 17 }}>
                             {t.subtitle}
                             <select
+ 
   value={language}
   onChange={(e) => {
-    setLanguage(e.target.value);
-    localStorage.setItem("idioma", e.target.value);
+    const lang = e.target.value as keyof typeof translations;
+    setLanguage(lang);
+    localStorage.setItem("idioma", lang);
   }}
+  
   style={{
     marginTop: 14,
     padding: "10px 12px",
