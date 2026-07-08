@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type DashboardProps = {
   nombre: string;
 };
