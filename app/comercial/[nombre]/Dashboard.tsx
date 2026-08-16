@@ -8,24 +8,66 @@ export default function Dashboard({ nombre }: DashboardProps) {
   const hora = new Date().getHours();
 
   let saludo = "Buenas noches";
-  if (hora >= 6 && hora < 12) saludo = "Buenos días";
-  else if (hora >= 12 && hora < 20) saludo = "Buenas tardes";
+
+  if (hora >= 6 && hora < 12) {
+    saludo = "Buenos días";
+  } else if (hora >= 12 && hora < 20) {
+    saludo = "Buenas tardes";
+  }
 
   return (
     <>
       <section style={hero}>
+        <div style={logoRow}>
+          <Image
+            src="/images/logo-final.png"
+            alt="OneSupply"
+            width={220}
+            height={70}
+            priority
+            style={logo}
+          />
+        </div>
+
         <p style={label}>Área comercial</p>
 
-        <h1 style={title}>Hola {nombre} 👋</h1>
+        <h1 style={title}>
+          Hola {nombre} 👋
+        </h1>
 
-        <p style={subtitle}>{saludo}, bienvenido a OneSupply Connect</p>
+        <p style={subtitle}>
+          {saludo}, bienvenido a OneSupply Connect
+        </p>
       </section>
 
       <div style={statsGrid}>
-        <Card emoji="👥" titulo="Clientes" valor="--" color="#1677ff" />
-        <Card emoji="📦" titulo="Pedidos" valor="--" color="#25D366" />
-        <Card emoji="💶" titulo="Ventas" valor="-- €" color="#f1c400" />
-        <Card emoji="🔗" titulo="Activos" valor="--" color="#ff6b00" />
+        <Card
+          emoji="👥"
+          titulo="Clientes"
+          valor="--"
+          color="#1677ff"
+        />
+
+        <Card
+          emoji="📦"
+          titulo="Pedidos"
+          valor="--"
+          color="#25D366"
+        />
+
+        <Card
+          emoji="💶"
+          titulo="Ventas"
+          valor="-- €"
+          color="#f1c400"
+        />
+
+        <Card
+          emoji="🔗"
+          titulo="Activos"
+          valor="--"
+          color="#ff6b00"
+        />
       </div>
     </>
   );
@@ -38,14 +80,31 @@ type CardProps = {
   color: string;
 };
 
-function Card({ emoji, titulo, valor, color }: CardProps) {
+function Card({
+  emoji,
+  titulo,
+  valor,
+  color,
+}: CardProps) {
   return (
     <div style={card}>
-      <div style={{ ...icon, background: color }}>{emoji}</div>
+      <div
+        style={{
+          ...icon,
+          background: color,
+        }}
+      >
+        {emoji}
+      </div>
 
       <div>
-        <p style={cardTitle}>{titulo}</p>
-        <strong style={cardValue}>{valor}</strong>
+        <p style={cardTitle}>
+          {titulo}
+        </p>
+
+        <strong style={cardValue}>
+          {valor}
+        </strong>
       </div>
     </div>
   );
@@ -55,28 +114,41 @@ const hero = {
   background: "linear-gradient(135deg,#2d2d2d,#1b1b1b)",
   color: "white",
   borderRadius: 24,
-  padding: "20px 22px",
+  padding: "18px 20px 20px",
   marginBottom: 16,
   boxShadow: "0 8px 22px rgba(0,0,0,.16)",
+};
+
+const logoRow = {
+  display: "flex",
+  alignItems: "center",
+  marginBottom: 10,
+};
+
+const logo = {
+  width: "auto",
+  height: 44,
+  objectFit: "contain" as const,
 };
 
 const label = {
   margin: 0,
   color: "#f1c400",
-  fontSize: 15,
+  fontSize: 14,
   fontWeight: 700,
 };
 
 const title = {
-  margin: "8px 0 4px",
-  fontSize: 30,
-  lineHeight: "34px",
+  margin: "6px 0 4px",
+  fontSize: 28,
+  lineHeight: "32px",
 };
 
 const subtitle = {
   margin: 0,
   color: "#d8d8d8",
-  fontSize: 15,
+  fontSize: 14,
+  lineHeight: "20px",
 };
 
 const statsGrid = {

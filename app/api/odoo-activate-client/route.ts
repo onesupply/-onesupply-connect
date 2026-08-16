@@ -20,7 +20,10 @@ export async function POST(req: Request) {
     const clientId = body.clientId;
 
     if (!clientId) {
-      return NextResponse.json({ ok: false, error: "Falta clientId" });
+      return NextResponse.json({
+        ok: false,
+        error: "Falta clientId",
+      });
     }
 
     const url = process.env.ODOO_URL!;
@@ -28,8 +31,13 @@ export async function POST(req: Request) {
     const username = process.env.ODOO_USER!;
     const apiKey = process.env.ODOO_API_KEY!;
 
-    const common = xmlrpc.createClient({ url: `${url}/xmlrpc/2/common` });
-    const object = xmlrpc.createClient({ url: `${url}/xmlrpc/2/object` });
+    const common = xmlrpc.createClient({
+      url: `${url}/xmlrpc/2/common`,
+    });
+
+    const object = xmlrpc.createClient({
+      url: `${url}/xmlrpc/2/object`,
+    });
 
     const uid = await callXmlRpc(common, "authenticate", [
       db,
@@ -46,13 +54,16 @@ export async function POST(req: Request) {
       apiKey,
       "res.partner",
       "write",
-      [[clientId], {
-        x_studio_token_app: token,
-        x_studio_app_activa: true,
-      }],
+      [
+        [clientId],
+        {
+          x_studio_token_app: token,
+          x_studio_app_activa: true,
+        },
+      ],
     ]);
 
-    const link = `https://onesupply-connect-ja2w.vercel.app/acceso/${token}`;
+    const link = `https://connect.onesupply.es/acceso/${token}`;
 
     return NextResponse.json({
       ok: true,
