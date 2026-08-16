@@ -10,7 +10,9 @@ export default function AccesoClientePage() {
     async function validarAcceso() {
       const tokenUrl = String(params.token || "").trim().toUpperCase();
 
-      const res = await fetch(`/api/odoo-customers?token=${encodeURIComponent(tokenUrl)}`);
+      const res = await fetch(
+        `/api/odoo-customers?token=${encodeURIComponent(tokenUrl)}`
+      );
       const data = await res.json();
 
       if (!data.ok || !data.cliente) {
@@ -19,7 +21,16 @@ export default function AccesoClientePage() {
         return;
       }
 
-      localStorage.setItem("cliente", JSON.stringify(data.cliente));
+      const clienteConAccesoPersonal = {
+        ...data.cliente,
+        __accesoPersonal: true,
+      };
+
+      localStorage.setItem(
+        "cliente",
+        JSON.stringify(clienteConAccesoPersonal)
+      );
+
       window.location.href = "/productos";
     }
 
@@ -27,8 +38,24 @@ export default function AccesoClientePage() {
   }, [params.token]);
 
   return (
-    <main style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Arial", background: "#f4f4f4" }}>
-      <div style={{ background: "white", padding: 30, borderRadius: 24, textAlign: "center" }}>
+    <main
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "Arial",
+        background: "#f4f4f4",
+      }}
+    >
+      <div
+        style={{
+          background: "white",
+          padding: 30,
+          borderRadius: 24,
+          textAlign: "center",
+        }}
+      >
         <h1 style={{ color: "#f1c400" }}>OneSupply</h1>
         <p>Validando acceso...</p>
       </div>

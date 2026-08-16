@@ -434,22 +434,24 @@ setTimeout(() => setToast(""), 2000);
                             </p>
 
                             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                                <button
-                                    onClick={() => {
-                                        localStorage.removeItem("cliente");
-                                        window.location.href = "/";
-                                    }}
-                                    style={{
-                                        padding: "12px 18px",
-                                        borderRadius: 12,
-                                        border: 0,
-                                        background: "#f1c400",
-                                        fontWeight: "bold",
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    {t.changeCustomer}
-                                </button>
+                                {!cliente?.__accesoPersonal && (
+                                    <button
+                                        onClick={() => {
+                                            localStorage.removeItem("cliente");
+                                            window.location.href = "/";
+                                        }}
+                                        style={{
+                                            padding: "12px 18px",
+                                            borderRadius: 12,
+                                            border: 0,
+                                            background: "#f1c400",
+                                            fontWeight: "bold",
+                                            cursor: "pointer",
+                                        }}
+                                    >
+                                        {t.changeCustomer}
+                                    </button>
+                                )}
 
                                 <button
                                     onClick={() => (window.location.href = "/pedidos")}
