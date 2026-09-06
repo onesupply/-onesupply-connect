@@ -177,9 +177,11 @@ setTimeout(() => setToast(""), 2000);
   cart,
   notes,
   deliveryDate,
-  baseImponible: (total / 1.21).toFixed(2),
-  iva: (total - total / 1.21).toFixed(2),
-  total: total.toFixed(2),
+  subtotal: subtotal.toFixed(2),
+  descuento: descuento.toFixed(2),
+  baseImponible: (totalConDescuento / 1.21).toFixed(2),
+  iva: (totalConDescuento - totalConDescuento / 1.21).toFixed(2),
+  total: totalConDescuento.toFixed(2),
 }),
             });
 
@@ -197,10 +199,13 @@ setTimeout(() => setToast(""), 2000);
             }
         }
 
-        const total = cart.reduce(
+        const subtotal = cart.reduce(
             (sum, item) => sum + Number(item.list_price || 0) * item.quantity,
             0
         );
+
+        const descuento = subtotal * 0.02;
+        const totalConDescuento = subtotal - descuento;
 
         const totalUnits = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -411,6 +416,20 @@ setTimeout(() => setToast(""), 2000);
   <option value="ur">🇵🇰 اردو</option>
 </select>
                         </p>
+
+                        <div
+                            style={{
+                                marginTop: 16,
+                                background: "#f1c400",
+                                color: "#111",
+                                padding: "12px 16px",
+                                borderRadius: 14,
+                                fontWeight: "bold",
+                                display: "inline-block",
+                            }}
+                        >
+                            🎉 -2% EXTRA EN TODOS TUS PEDIDOS ONLINE
+                        </div>
                     </div>
 
                     {cliente && (
@@ -660,7 +679,7 @@ setTimeout(() => setToast(""), 2000);
                                 <strong>🛒 Tu pedido</strong>
                                 <p style={{ margin: "4px 0 0", color: "#ddd" }}>
                                     {totalUnits} uds · {cart.length} productos ·{" "}
-                                    {total.toFixed(2)} €
+                                    {totalConDescuento.toFixed(2)} €
                                 </p>
                             </div>
                             <button
@@ -860,13 +879,45 @@ setTimeout(() => setToast(""), 2000);
 </div>
 
                             </div>
-<h3 style={{ textAlign: "right" }}>
-  Base imponible: {(total / 1.21).toFixed(2)} €
-  <br />
-  IVA (21%): {(total - total / 1.21).toFixed(2)} €
-  <br />
-  Total IVA incluido: {total.toFixed(2)} €
-</h3>
+<div
+  style={{
+    marginTop: 20,
+    padding: 16,
+    borderRadius: 16,
+    background: "#f8f8f8",
+    border: "1px solid #e5e5e5",
+  }}
+>
+  <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+    <span>Subtotal IVA incluido</span>
+    <strong>{subtotal.toFixed(2)} €</strong>
+  </div>
+
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      marginBottom: 8,
+      color: "#138a36",
+      fontWeight: "bold",
+    }}
+  >
+    <span>🎉 Descuento App (2%)</span>
+    <span>-{descuento.toFixed(2)} €</span>
+  </div>
+
+  <hr style={{ border: 0, borderTop: "1px solid #ddd", margin: "12px 0" }} />
+
+  <div style={{ textAlign: "right", lineHeight: 1.7 }}>
+    Base imponible: {(totalConDescuento / 1.21).toFixed(2)} €
+    <br />
+    IVA (21%): {(totalConDescuento - totalConDescuento / 1.21).toFixed(2)} €
+    <br />
+    <strong style={{ fontSize: 20 }}>
+      Total IVA incluido: {totalConDescuento.toFixed(2)} €
+    </strong>
+  </div>
+</div>
                             <div style={{ display: "flex", gap: 12, marginTop: 20 }}>
                                 <button
                                     onClick={() => setReviewOpen(false)}
